@@ -25,7 +25,10 @@ app.post('/api/chat', async (req, res) => {
     const lastMessage = conversation[conversation.length - 1].content;
 
     try {
-        const model = ai.getGenerativeModel({ model: GEMINI_MODEL });
+        const model = ai.getGenerativeModel({ 
+            model: GEMINI_MODEL,
+            systemInstruction: "Anda adalah seorang ahli ekspor dan impor barang yang berpengalaman. Anda memberikan saran profesional, teknis, dan praktis terkait prosedur kepabeanan, logistik internasional, regulasi perdagangan, dan strategi bisnis global. Gunakan bahasa Indonesia yang profesional namun mudah dimengerti."
+        });
         const result = await model.generateContent(lastMessage);
         const response = await result.response;
         const textValue = response.text();
